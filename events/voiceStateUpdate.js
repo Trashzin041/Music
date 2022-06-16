@@ -1,16 +1,14 @@
-const { DiscordMusicBot } = require("../structures/DiscordMusicBot");
-const { VoiceState, MessageEmbed } = require("discord.js");
 /**
  *
- * @param {DiscordMusicBot} client
- * @param {VoiceState} oldState
- * @param {VoiceState} newState
+ * @param {import("../lib/DiscordMusicBot")} client
+ * @param {import("discord.js").VoiceState} oldState
+ * @param {import("discord.js").VoiceState} newState
  * @returns {Promise<void>}
  */
 module.exports = async (client, oldState, newState) => {
   // get guild and player
   let guildId = newState.guild.id;
-  const player = client.Manager.get(guildId);
+  const player = client.manager.get(guildId);
 
   // check if the bot is active (playing, paused or empty does not matter (return otherwise)
   if (!player || player.state !== "CONNECTED") return;
@@ -25,9 +23,9 @@ module.exports = async (client, oldState, newState) => {
   if (oldState.channel !== null && newState.channel !== null)
     stateChange.type = "MOVE";
   if (oldState.channel === null && newState.channel === null) return; // you never know, right
-  if (newState.serverMute == true && oldState.serverMute == false)
+  if (newState.serverMute == true && oldState.serverMute == false && newState.id === client.config.clientId)
     return player.pause(true);
-  if (newState.serverMute == false && oldState.serverMute == true)
+  if (newState.serverMute == false && oldState.serverMute == true && newState.id === client.config.clientId)
     return player.pause(false);
   // move check first as it changes type
   if (stateChange.type === "MOVE") {
@@ -49,33 +47,49 @@ module.exports = async (client, oldState, newState) => {
 
   switch (stateChange.type) {
     case "JOIN":
-      if (stateChange.members.size === 1 && player.paused) {
-        let emb = new MessageEmbed()
-          .setAuthor(`Resuming paused queue`, client.botconfig.IconURL)
-          .setColor(client.botconfig.EmbedColor)
-          .setDescription(
-            `Resuming playback because all of you left me with music to play all alone`
-          );
-        await client.channels.cache.get(player.textChannel).send(emb);
+      if (client.config.alwaysplay === false) {
+        if (stateChange.members.size === 1 && player.paused) {
+          let playerResumed = client
+            .Embed()
+            // say that the queue has been resumed
+            .setTitle(`Resumed!`, client.config.iconURL)
+            .setFooter({ text: `The current song has been resumed.` });
+          await client.channels.cache
+            .get(player.textChannel)
+            .send({ embeds: [playerResumed] });
 
-        // update the now playing message and bring it to the front
-        let msg2 = await client.channels.cache
-          .get(player.textChannel)
-          .send(player.nowPlayingMessage.embeds[0]);
-        player.setNowplayingMessage(msg2);
-
-        player.pause(false);
+          //!BUG Updated nowplaying message doesn't show buttons
+          // update the now playing message and bring it to the front
+          let playerPlaying = await client.channels.cache
+            .get(player.textChannel)
+            .send({
+              embeds: [player.nowPlayingMessage.embeds[0]],
+              components: [client.createController(player.options.guild)],
+            });
+          player.setNowplayingMessage(playerPlaying);
+          player.pause(false);
+        }
       }
       break;
     case "LEAVE":
-      if (stateChange.members.size === 0 && !player.paused && player.playing) {
-        player.pause(true);
+      if (client.config.alwaysplay === false) {
+        if (
+          stateChange.members.size === 0 &&
+          !player.paused &&
+          player.playing
+        ) {
+          player.pause(true);
 
-        let emb = new MessageEmbed()
-          .setAuthor(`Paused!`, client.botconfig.IconURL)
-          .setColor(client.botconfig.EmbedColor)
-          .setDescription(`The player has been paused because everybody left`);
-        await client.channels.cache.get(player.textChannel).send(emb);
+          let playerPaused = client
+            .Embed()
+            .setTitle(`Paused!`, client.config.iconURL)
+            .setFooter({
+              text: `The current song has been paused because theres no one in the voice channel.`,
+            });
+          await client.channels.cache
+            .get(player.textChannel)
+            .send({ embeds: [playerPaused] });
+        }
       }
       break;
   }
