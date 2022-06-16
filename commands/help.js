@@ -23,7 +23,7 @@ module.exports = {
           cmd.name
         }${cmd.usage ? " " + cmd.usage : ""}\` - ${cmd.description}`
     );
-
+//| [Dashboard](${client.botconfig.Website}) 
     let Embed = new MessageEmbed()
       .setAuthor(
         `Commands of ${client.user.username}`,
@@ -39,7 +39,7 @@ module.exports = {
   Discord Music Bot Version: v${require("../package.json").version}
   [✨ Support Server](${
     client.botconfig.SupportServer
-  }) | [GitHub](https://github.com/jmesfo0/Discord-MusicBot) | [Dashboard](${client.botconfig.Website}) | By [jmesfo0](https://github.com/jmesfo0)`);
+  }) | [GitHub](https://github.com/jmesfo0/Discord-MusicBot) | By [jmesfo0](https://github.com/jmesfo0)`);
     if (!args[0]) message.channel.send(Embed);
     else {
       let cmd =
@@ -123,7 +123,7 @@ module.exports = {
   Discord Music Bot Version: v${require("../package.json").version}
   [✨ Support Server](${
     client.botconfig.SupportServer
-  }) | [GitHub](https://github.com/jmesfo0/Discord-MusicBot) | [Dashboard](${client.botconfig.Website}) | By [jmesfo0](https://github.com/jmesfo0)`);
+  }) | [GitHub](https://github.com/jmesfo0/Discord-MusicBot) | By [jmesfo0](https://github.com/jmesfo0)`);
       if (!args) return interaction.send(Embed);
       else {
         let cmd =
