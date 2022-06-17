@@ -6,9 +6,9 @@ const path = require("path");
  * @param {require("../structures/DiscordMusicBot")} client
  * @param {string} guild
  */
-module.exports = (client, guild) => {
-  client.log(guild.name);
-  client.log("Registering slash commands for " + guild.name);
+module.exports = (client, guild, guilds) => {
+  client.log(guilds);
+  client.log("Registering slash commands for " + guild);
   
   let commandsDir = path.join(__dirname, "..", "commands");
 
