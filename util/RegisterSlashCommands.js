@@ -7,7 +7,7 @@ const path = require("path");
  * @param {string} guild
  */
 module.exports = (client, guild, guilds) => {
-  client.log(guild in client.fetch_guilds(limit=150)]);
+  client.log(guild in client.fetch_guilds(limit=150));
   client.log("Registering slash commands for " + guild);
   
   let commandsDir = path.join(__dirname, "..", "commands");
