@@ -66,9 +66,11 @@ module.exports = {
           interaction,
           "❌ | **Nothing is playing right now...**"
         );
-      if (!client.botconfig["24/7"]) player.destroy();
+      if (!client.botconfig["24/7"]) 
+        player.destroy();
+        client.sendTime(interaction, ":notes: | **Disconnected!**");
       });
-      client.sendTime(interaction, ":notes: | **Disconnected!**");
+      
     },
   },
 };
