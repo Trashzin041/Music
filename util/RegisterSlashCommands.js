@@ -25,7 +25,8 @@ module.exports = (client, guild, data) => {
       //Creating variables like this, So you might understand my code :)
       let ClientAPI = client.api.applications(client.user.id);
       let GuildAPI = ClientAPI.guilds(guild);
-      client.log(data.message.channel.guild.name);                                
+      
+      client.log(data.client.channel.guild.name);                                
       client.log(
         "[Slash Command]: [POST] Guild " +
           guild +
