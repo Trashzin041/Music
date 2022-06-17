@@ -30,7 +30,8 @@ module.exports = {
       );
     await client.sendTime(message.channel, ":notes: | **Disconnected!**");
     await message.react("✅");
-    player.destroy();
+    if (!this.botconfig["24/7"]) player.destroy();
+      });
   },
 
   SlashCommand: {
@@ -65,7 +66,8 @@ module.exports = {
           interaction,
           "❌ | **Nothing is playing right now...**"
         );
-      player.destroy();
+      if (!this.botconfig["24/7"]) player.destroy();
+      });
       client.sendTime(interaction, ":notes: | **Disconnected!**");
     },
   },
