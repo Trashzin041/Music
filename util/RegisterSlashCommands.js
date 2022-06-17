@@ -6,8 +6,7 @@ const path = require("path");
  * @param {require("../structures/DiscordMusicBot")} client
  * @param {string} guild
  */
-module.exports = (client, guild) => {
-  client.log(guild);
+module.exports = (client, guild, message) => {
   client.log("Registering slash commands for " + guild);
   
   let commandsDir = path.join(__dirname, "..", "commands");
@@ -26,8 +25,7 @@ module.exports = (client, guild) => {
       //Creating variables like this, So you might understand my code :)
       let ClientAPI = client.api.applications(client.user.id);
       let GuildAPI = ClientAPI.guilds(guild);
-      let GuildName = client.guild.name(guild);
-      client.log(GuildName);                                
+      client.log(message.guild.name);                                
       client.log(
         "[Slash Command]: [POST] Guild " +
           guild +
