@@ -9,7 +9,7 @@ module.exports = {
   ClientSecret: process.env.Discord_ClientSecret || "", //Discord Client Secret
   Scopes: ["identify", "guilds", "applications.commands"], //Discord OAuth2 Scopes
   ServerDeafen: true, //If you want bot to stay deafened
-  DefaultVolume: process.env.DefaultVolume, //Sets the default volume of the bot, You can change this number anywhere from 1 to 100
+  DefaultVolume: 20, //Sets the default volume of the bot, You can change this number anywhere from 1 to 100
   CallbackURL: "/api/callback", //Discord API Callback url. Do not touch it if you don't know what you are doing. All you need to change for website to work is on line 20.
   "24/7": process.env.StayConnected, //If you want the bot to be stay in the vc 24/7
   CookieSecret: "whwtstgis", //A Secret like a password
