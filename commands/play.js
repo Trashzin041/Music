@@ -104,11 +104,11 @@ module.exports = {
           SongAddedEmbed.setDescription(
             `[${Searched.tracks[0].info.title}](${Searched.tracks[0].info.uri})`
           );
-          SongAddedEmbed.addField(
-            "Author",
-            Searched.tracks[0].info.author,
-            true
-          );
+          // SongAddedEmbed.addField(
+          //   "Author",
+          //   Searched.tracks[0].info.author,
+          //   true
+          // );
           //SongAddedEmbed.addField("Duration", `\`${prettyMilliseconds(Searched.tracks[0].length, { colonNotation: true })}\``, true);
           if (player.queue.totalSize > 1)
             SongAddedEmbed.addField(
@@ -175,7 +175,7 @@ module.exports = {
           SongAddedEmbed.setDescription(
             `[${Searched.tracks[0].title}](${Searched.tracks[0].uri})`
           );
-          SongAddedEmbed.addField("Author", Searched.tracks[0].author, true);
+          // SongAddedEmbed.addField("Author", Searched.tracks[0].author, true);
           SongAddedEmbed.addField(
             "Duration",
             `\`${prettyMilliseconds(Searched.tracks[0].duration, {
@@ -382,7 +382,7 @@ module.exports = {
             SongAddedEmbed.setDescription(
               `[${res.tracks[0].title}](${res.tracks[0].uri})`
             );
-            SongAddedEmbed.addField("Author", res.tracks[0].author, true);
+            // SongAddedEmbed.addField("Author", res.tracks[0].author, true);
             SongAddedEmbed.addField(
               "Duration",
               `\`${prettyMilliseconds(res.tracks[0].duration, {
@@ -436,7 +436,7 @@ module.exports = {
               SongAddedEmbed.setThumbnail(track.displayThumbnail());
               SongAddedEmbed.setColor(client.botconfig.EmbedColor);
               SongAddedEmbed.setDescription(`[${track.title}](${track.uri})`);
-              SongAddedEmbed.addField("Author", track.author, true);
+              // SongAddedEmbed.addField("Author", track.author, true);
               SongAddedEmbed.addField(
                 "Duration",
                 `\`${prettyMilliseconds(track.duration, {
@@ -461,7 +461,7 @@ module.exports = {
               SongAddedEmbed.setThumbnail(track.displayThumbnail());
               SongAddedEmbed.setColor(client.botconfig.EmbedColor);
               SongAddedEmbed.setDescription(`[${track.title}](${track.uri})`);
-              SongAddedEmbed.addField("Author", track.author, true);
+              // SongAddedEmbed.addField("Author", track.author, true);
               SongAddedEmbed.addField(
                 "Duration",
                 `\`${prettyMilliseconds(track.duration, {
