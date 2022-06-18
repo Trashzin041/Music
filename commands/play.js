@@ -287,11 +287,11 @@ module.exports = {
             SongAddedEmbed.setDescription(
               `[${Searched.tracks[0].info.title}](${Searched.tracks[0].info.uri})`
             );
-            SongAddedEmbed.addField(
-              "Author",
-              Searched.tracks[0].info.author,
-              true
-            );
+            // SongAddedEmbed.addField(
+            //   "Author",
+            //   Searched.tracks[0].info.author,
+            //   true
+            // );
             if (player.queue.totalSize > 1)
               SongAddedEmbed.addField(
                 "Position in queue",
